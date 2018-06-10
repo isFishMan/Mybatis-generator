@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootdemo.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.example.springbootdemo.entity.Student">
+    <id column="studentNo" jdbcType="CHAR" property="studentno" />
+    <result column="loginPwd" jdbcType="CHAR" property="loginpwd" />
+    <result column="studentName" jdbcType="VARCHAR" property="studentname" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="gradeID" jdbcType="INTEGER" property="gradeid" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    studentNo, loginPwd, studentName, sex, gradeID, phone, address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where studentNo = #{studentno,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from student
+    where studentNo = #{studentno,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.springbootdemo.entity.Student">
+    insert into student (studentNo, loginPwd, studentName, 
+      sex, gradeID, phone, address
+      )
+    values (#{studentno,jdbcType=CHAR}, #{loginpwd,jdbcType=CHAR}, #{studentname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=CHAR}, #{gradeid,jdbcType=INTEGER}, #{phone,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.springbootdemo.entity.Student">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentno != null">
+        studentNo,
+      </if>
+      <if test="loginpwd != null">
+        loginPwd,
+      </if>
+      <if test="studentname != null">
+        studentName,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="gradeid != null">
+        gradeID,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentno != null">
+        #{studentno,jdbcType=CHAR},
+      </if>
+      <if test="loginpwd != null">
+        #{loginpwd,jdbcType=CHAR},
+      </if>
+      <if test="studentname != null">
+        #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="gradeid != null">
+        #{gradeid,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.springbootdemo.entity.Student">
+    update student
+    <set>
+      <if test="loginpwd != null">
+        loginPwd = #{loginpwd,jdbcType=CHAR},
+      </if>
+      <if test="studentname != null">
+        studentName = #{studentname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="gradeid != null">
+        gradeID = #{gradeid,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where studentNo = #{studentno,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.springbootdemo.entity.Student">
+    update student
+    set loginPwd = #{loginpwd,jdbcType=CHAR},
+      studentName = #{studentname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      gradeID = #{gradeid,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=CHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where studentNo = #{studentno,jdbcType=CHAR}
+  </update>
+  <!--非逆向工程生成的方法-->
+  <select id="selectAllStudent" resultType="com.example.springbootdemo.entity.Student">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM student
+  </select>
+</mapper>
